@@ -1,0 +1,210 @@
+NET Framework-Klassenbibliothek   
+
+Thread-Klasse
+Erstellt und steuert einen Thread, legt dessen Priorität fest und ruft den Status ab.
+
+Eine Liste aller Member dieses Typs finden Sie unter Thread-Member.
+
+System.Object
+   System.Threading.Thread
+
+[Visual Basic]
+NotInheritable Public Class Thread
+[C#]
+public sealed class Thread
+[C++]
+public __gc __sealed class Thread
+[JScript]
+public class Thread
+Threadsicherheit
+Dieser Typ ist bezüglich Multithreadoperationen sicher.
+
+Hinweise
+Ein Prozess kann einen oder mehrere Threads erstellen, die einen Teil des ihm zugeordneten Programmcodes ausführen. Geben Sie mit Hilfe eines ThreadStart-Delegaten den von einem Thread ausgeführten Programmcode an.
+
+Für die Dauer seines Bestehens befindet sich ein Thread immer in einem oder mehreren der Zustände, die von ThreadState definiert sind. Eine Planungsprioritätsebene kann entsprechend der Definition von ThreadPriority für einen Thread angefordert werden. Diese wird jedoch nicht unbedingt vom Betriebssystem eingehalten.
+
+GetHashCode stellt Identifikation für verwaltete Threads bereit. Diese Threadidentifikation gerät während der gesamten Lebensdauer des betreffenden Threads niemals mit dem Wert eines anderen Threads in Konflikt, unabhängig von der Anwendungsdomäne, aus der dieser Wert abgerufen wurde.
+
+Hinweis   Die Thread-ID eines Betriebssystems hat keine festgelegte Beziehung zu einem verwalteten Thread, weil ein nicht verwalteter Host die Beziehung zwischen verwalteten und nicht verwalteten Threads steuern kann. Insbesondere kann ein hoch entwickelter Host unter Verwendung der CLR Hosting API die Ablaufplanung vieler verwalteter Threads durch denselben Betriebssystemthread ausführen oder einen verwalteten Thread zwischen verschiedenen Betriebssystemthreads verschieben.
+Beispiel
+[Visual Basic, C#, C++] Das folgende Beispiel veranschaulicht einfache Threadfunktionen.
+
+[Visual Basic] 
+Imports System
+Imports System.Threading
+
+' Simple threading scenario:  Start a Shared method running
+' on a second thread.
+Public Class ThreadExample
+    ' The ThreadProc method is called when the thread starts.
+    ' It loops ten times, writing to the console and yielding 
+    ' the rest of its time slice each time, and then ends.
+    Public Shared Sub ThreadProc()
+        Dim i As Integer
+        For i = 0 To 9
+            Console.WriteLine("ThreadProc: {0}", i)
+            ' Yield the rest of the time slice.
+            Thread.Sleep(0)
+        Next
+    End Sub
+
+    Public Shared Sub Main()
+        Console.WriteLine("Main thread: Start a second thread.")
+        ' The constructor for the Thread class requires a ThreadStart 
+        ' delegate.  The Visual Basic AddressOf operator creates this
+        ' delegate for you.
+        Dim t As New Thread(AddressOf ThreadProc)
+        ' Start ThreadProc.  On a uniprocessor, the thread does not get 
+        ' any processor time until the main thread yields.  Uncomment 
+        ' the Thread.Sleep that follows t.Start() to see the difference.
+        t.Start()
+        'Thread.Sleep(0)
+
+        Dim i As Integer
+        For i = 1 To 4
+            Console.WriteLine("Main thread: Do some work.")
+            Thread.Sleep(0)
+        Next
+
+        Console.WriteLine("Main thread: Call Join(), to wait until ThreadProc ends.")
+        t.Join()
+        Console.WriteLine("Main thread: ThreadProc.Join has returned.  Press Enter to end program.")
+        Console.ReadLine()
+    End Sub
+End Class
+
+[C#] 
+using System;
+using System.Threading;
+
+// Simple threading scenario:  Start a static method running
+// on a second thread.
+public class ThreadExample {
+    // The ThreadProc method is called when the thread starts.
+    // It loops ten times, writing to the console and yielding 
+    // the rest of its time slice each time, and then ends.
+    public static void ThreadProc() {
+        for (int i = 0; i < 10; i++) {
+            Console.WriteLine("ThreadProc: {0}", i);
+            // Yield the rest of the time slice.
+            Thread.Sleep(0);
+        }
+    }
+
+    public static void Main() {
+        Console.WriteLine("Main thread: Start a second thread.");
+        // The constructor for the Thread class requires a ThreadStart 
+        // delegate that represents the method to be executed on the 
+        // thread.  C# simplifies the creation of this delegate.
+        Thread t = new Thread(new ThreadStart(ThreadProc));
+        // Start ThreadProc.  On a uniprocessor, the thread does not get 
+        // any processor time until the main thread yields.  Uncomment 
+        // the Thread.Sleep that follows t.Start() to see the difference.
+        t.Start();
+        //Thread.Sleep(0);
+
+        for (int i = 0; i < 4; i++) {
+            Console.WriteLine("Main thread: Do some work.");
+            Thread.Sleep(0);
+        }
+
+        Console.WriteLine("Main thread: Call Join(), to wait until ThreadProc ends.");
+        t.Join();
+        Console.WriteLine("Main thread: ThreadProc.Join has returned.  Press Enter to end program.");
+        Console.ReadLine();
+    }
+}
+
+[C++] 
+
+// [C++]
+// Compile using /clr option.
+#using <mscorlib.dll>
+ using namespace System;
+ using namespace System::Threading;
+ // Simple threading scenario:  Start a Shared method running
+ // on a second thread.
+ public __gc class ThreadExample 
+ {
+ public:
+     // The ThreadProc method is called when the thread starts.
+     // It loops ten times, writing to the console and yielding 
+     // the rest of its time slice each time, and then ends.
+     static void ThreadProc()
+     {
+         for (int i = 0; i < 10; i++) 
+         {
+             Console::Write("ThreadProc: ");
+             Console::WriteLine(i);
+             // Yield the rest of the time slice.
+             Thread::Sleep(0);
+         }
+     }
+ };
+ 
+ int main() 
+ {
+     Console::WriteLine(S"Main thread: Start a second thread.");
+     // Create the thread, passing a ThreadStart delegate that
+     // represents the ThreadExample::ThreadProc method.  For a 
+     // delegate representing a static method, no object is
+     // required.
+     Thread *oThread = new Thread(new ThreadStart(0, &ThreadExample::ThreadProc));
+ 
+     // Start the thread.  On a uniprocessor, the thread does not get 
+     // any processor time until the main thread yields.  Uncomment
+     // the Thread.Sleep that follows t.Start() to see the difference.
+     oThread->Start();
+     //Thread::Sleep(0);
+
+     for (int i = 0; i < 4; i++) {
+         Console::WriteLine("Main thread: Do some work.");
+         Thread::Sleep(0);
+     }
+
+     Console::WriteLine("Main thread: Call Join(), to wait until ThreadProc ends.");
+     oThread->Join();
+     Console::WriteLine("Main thread: ThreadProc.Join has returned.  Press Enter to end program.");
+     Console::ReadLine();
+     return 0;
+ }
+
+[Visual Basic, C#, C++] Durch diesen Code wird eine mit folgendem Beispiel vergleichbare Ausgabe generiert:
+
+[VB, C++, C#]
+Main thread: Start a second thread.
+Main thread: Do some work.
+ThreadProc: 0
+Main thread: Do some work.
+ThreadProc: 1
+Main thread: Do some work.
+ThreadProc: 2
+Main thread: Do some work.
+ThreadProc: 3
+Main thread: Call Join(), to wait until ThreadProc ends.
+ThreadProc: 4
+ThreadProc: 5
+ThreadProc: 6
+ThreadProc: 7
+ThreadProc: 8
+ThreadProc: 9
+Main thread: ThreadProc.Join has returned.  Press Enter to end program.
+[JScript] Für JScript ist kein Beispiel verfügbar. Klicken Sie zum Anzeigen eines Beispiels für Visual Basic, C# oder C++ in der linken oberen Ecke der Seite auf die Schaltfläche "Sprachfilter" .
+
+Anforderungen
+Namespace: System.Threading
+
+Plattformen: Windows 98, Windows NT 4.0, Windows Millennium Edition, Windows 2000, Windows XP Home Edition, Windows XP Professional, Windows Server 2003-Familie, .NET Compact Framework - Windows CE .NET
+
+Assembly: Mscorlib (in der Datei Mscorlib.dll)
+
+Siehe auch
+Thread-Member | System.Threading-Namespace | Threads und Threading | Verwenden von Threads und Threading | Thread-Member (Visual J#-Syntax) | Programmierung mit Managed Extensions for C++
+
+
+Die Syntax basiert auf .NET Framework, Version 1.1.
+Dokumentation, Version 1.1.1.
+
+
+--------------------------------------------------------------------------------

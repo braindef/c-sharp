@@ -1,0 +1,8 @@
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\Visitenkarte.csproj.GenerateResource.Cache
+bin\Debug\Visitenkarte.exe
+bin\Debug\Visitenkarte.pdb
+obj\Debug\Visitenkarte.exe
+obj\Debug\Visitenkarte.pdb
+obj\Debug\Visitenkarte.Properties.Resources.resources
+obj\Debug\Visitenkarte.hintergrund.jpg

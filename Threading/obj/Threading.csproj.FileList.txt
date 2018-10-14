@@ -1,0 +1,5 @@
+bin\Debug\Threading.exe
+bin\Debug\Threading.pdb
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\Threading.exe
+obj\Debug\Threading.pdb

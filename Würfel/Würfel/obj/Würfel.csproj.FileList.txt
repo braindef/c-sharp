@@ -1,0 +1,7 @@
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\Würfel.Properties.Resources.resources
+obj\Debug\Würfel.csproj.GenerateResource.Cache
+bin\Debug\Würfel.exe
+bin\Debug\Würfel.pdb
+obj\Debug\Würfel.exe
+obj\Debug\Würfel.pdb

@@ -1,0 +1,5 @@
+bin\Debug\Visitenkarte.exe
+bin\Debug\Visitenkarte.pdb
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\Visitenkarte.exe
+obj\Debug\Visitenkarte.pdb

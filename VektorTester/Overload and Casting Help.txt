@@ -1,0 +1,151 @@
+/*
+ * Created by SharpDevelop.
+ * User: Marc Jr. Landolt
+ * Date: 12.08.2006
+ * Time: 20::34
+ * 
+ * To change this template use Tools | Options | Coding | Edit Standard Headers.
+ */
+
+
+Zusammenfassung: Man kann die Priorität der operatoren nicht verändern
+mit :
+
+public static implicit/explicit operator double(Objekt a)
+		{
+			return (double)a.komponente relevant für den cast;
+		}
+
+lässt sich ein implicitr bzw explicit cast bewerkstelligen...
+
+/*Man kann bei Operatoren nicht verändern: 
+
+die Arität, d.h., ob ein Operator sich auf einen, zwei oder drei Operanden bezieht, 
+die Präzedenz oder Bindungsstärke, d.h. die Reihenfolge der Auswertung von Operatoren in Ausdrücken mit mehreren Operatoren, 
+die Assoziativität, d.h. die Bindungsrichtung nach rechts oder nach links. 
+Die zur Verfügung stehenden Operatoren und ihre Eigenschaften können Sie der folgenden Tabelle entnehmen. 
+
+Überladbare Operatoren
+
+--------------------------------------------------------------------------------
+
+Operator  Arität Funktion                               Priorität Assoziativität           
+
+ +         1     arithmetisches Vorzeichen               15        R           
+
+ +         2     Addition                                12        L           
+
+ -         1     arithmetisches Vorzeichen               15        R           
+
+ -         2     Subtraktion                             12        L           
+
+ ++        1     Inkrement                               15        R           
+
+ --        1     Dekrement                               15        R           
+
+ *         2     Multiplikation                          13        L           
+
+ /         2     Division                                13        L           
+
+ %         2     Divisionsrest                           13        L           
+
+ ^         2     bitweies exklusives Oder                                      
+
+ &         2     bitweises Und                                                 
+
+ |         2     bitweises Oder                                                
+
+ ~         1     bitweises Nicht (Komplement)                                  
+
+ &&        2     logisches Und                                                 
+
+ ||        2     logisches Oder                                                
+
+ !         1     logisches Nicht                                               
+
+ <<        2     bitweise Linksverschiebung              11        L           
+
+ >>        2     bitweise Rechtsverschiebung             11        L           
+
+ =         2     Wertzuweisung                                                 
+
+ +=, -=, *=, /=, %=, ^=, &=, |=,    2     Wertzuweisung  2         R            
+>>=, <<=                                                                        
+
+ ==        2     Gleichheit                              9         L           
+
+ !=        2     Ungleichheit                            9         L           
+
+ <         2     kleiner                                                       
+
+ >         2     größer                                                        
+
+ <=        2     kleiner oder gleich                     10        L           
+
+ >=        2     größer oder gleich                      10        L           
+
+ ->*       2     Komponentenzeigerdereferenzierung       14        L           
+
+ *         1     Dereferenzierung                                              
+
+ &         1     Adressermittlung                                              
+
+ ,         2     sequentielle Auswertung                 1         L           
+
+ []        2     Indizierung                             16        L           
+
+ ()        n     Funktionsaufruf                         16        L           
+
+ (Typ)     1     Typkonversion                           15        R           
+
+ new       n     Speicheranforderung                     15        R           
+
+ delete    n     Speicherfreigabe                        15        R           
+
+
+
+
+--------------------------------------------------------------------------------
+
+Weitere, nicht überladbare Operatoren
+
+--------------------------------------------------------------------------------
+
+Operator  Arität Funktion                               Priorität Assoziativit 
+                                                                  ät           
+
+ ::        1     globale Geltungsbereichsangabe          17        R           
+                 (Qualifizierung)                                              
+
+ ::        2     klassenspezifische Qualifizierung       17        L           
+
+ .         2     Komponentenselektion                    16        L           
+
+ .*        2     Komponentenzeigerdereferenzierung       14        L           
+
+ ? :       3     arithmetische Bedingung                 3         L           
+
+ sizeof    1     Speicherbedarf eines Datentyps          16        L           
+
+
+ 
+ 
+ 
+ C# lässt zu, dass benutzerdefinierte Typen durch Definition statischer Memberfunktionen und Verwendung des operator-Schlüsselworts Operatoren überladen. Es können jedoch nicht alle Operatoren überladen werden, und bei anderen bestehen Einschränkungen, wie in der folgenden Tabelle aufgelistet ist:
+
+Operatoren Überladbarkeit 
++, -, !, ~, ++, --, true, false 			Diese unären Operatoren können überladen werden. 
++, -, *, /, %, &, |, ^, <<, >>	 			Diese binären Operatoren können überladen werden. 
+==, !=, <, >, <=, >= 						Die Vergleichsoperatoren können überladen werden (siehe aber unten stehenden Hinweis). 
+&&, || 										Die bedingten logischen Operatoren können zwar nicht überladen, aber mit Hilfe von & und | ausgewertet werden. Letztere können wiederum überladen werden; siehe 7.11.2 Benutzerdefinierte bedingte logische Operatoren. 
+[] 											Der Arrayindizierungsoperator kann nicht überladen werden, aber es können Indexer definiert werden. 
+()											Der Typkonvertierungsoperator kann nicht überladen werden, aber es können neue Konvertierungsoperatoren definiert werden (siehe explicit und implicit). 
++=, -=, *=, /=, %=, &=, |=, ^=, <<=, >>= 	Zuweisungsoperatoren können nicht überladen werden, aber zur Auswertung von += wird + verwendet und kann überladen werden. 
+=, ., ?:, ->, new, is, sizeof, typeof 		Diese Operatoren können nicht überladen werden. 
+
+Hinweis   Wenn Vergleichoperatoren überladen werden, dann müssen sie paarweise überladen werden, was Folgendes bedeutet: Wird == überladen, dann muss auch != überladen werden. Das Umgekehrte trifft ebenfalls zu, und Ähnliches gilt für < und > und für <= und >=.
+
+ 
+ Casting mit direktive implicit bzw explicit definieren
+ 
+ */
